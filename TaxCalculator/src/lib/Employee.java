@@ -19,24 +19,16 @@ public class Employee {
 	private String spouseName;
 	private String spouseIdNumber;
 
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private List<String> childNames = new LinkedList<>();
+        private List<String> childIdNumbers = new LinkedList<>();
+
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
-		this.yearJoined = yearJoined;
-		this.monthJoined = monthJoined;
-		this.dayJoined = dayJoined;
-		this.isForeigner = isForeigner;
-		this.gender = gender;
-		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
-	}
+	public Employee(String employeeId, PersonalInfo personalInfo, Identity identity, JoinDate joinDate) {
+            this.employeeId = employeeId;
+            this.personalInfo = personalInfo;
+            this.identity = identity;
+            this.joinDate = joinDate;
+        }
 	
 	/**
 	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
