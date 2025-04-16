@@ -10,12 +10,9 @@ public class Employee {
 	private String employeeId;
 	private String idNumber;
 	private String address;
-        
+        private JoinDate joinDate;
         private PersonalInfo personalInfo; 
 	
-	private int yearJoined;
-	private int monthJoined;
-	private int dayJoined;
 	private int monthWorkingInYear;
 	
 	private int monthlySalary;
