@@ -8,13 +8,10 @@ import java.util.List;
 public class Employee {
 
 	private String employeeId;
-	private String idNumber;
-	private String address;
+	private Identity identity;
         private JoinDate joinDate;
         private PersonalInfo personalInfo; 
-	
-	private int monthWorkingInYear;
-	
+		
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
