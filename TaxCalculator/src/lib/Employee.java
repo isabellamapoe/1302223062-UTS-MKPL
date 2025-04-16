@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Employee {
+    
+        private static final double FOREIGNER_SALARY_MULTIPLIER = 1.5;
 
 	private String employeeId;
 	private Identity identity;
@@ -35,20 +37,12 @@ public class Employee {
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
-	public void setMonthlySalary(int grade) {
-	int initialSalary = 0;
-	switch (grade) {
-		case 1: initialSalary = 3000000; break;
-		case 2: initialSalary = 5000000; break;
-		case 3: initialSalary = 7000000; break;
-		default: initialSalary = 0;
-	}
-
-	if (isForeigner) {
-		initialSalary *= 1.5;
-	}
-
-	monthlySalary = (int) initialSalary;
+	public void setMonthlySalary(Salary grade) {
+	int initialSalary = grade.getInitialSalary();
+            if (personalInfo.isForeigner()){
+                initialSalary *= FOREIGNER_SALARY_MULTIPLIER;
+            }
+            this.monthlySalary = initialSalary;
         }
 
 	
@@ -70,17 +64,19 @@ public class Employee {
 		childIdNumbers.add(childIdNumber);
 	}
 	
-	public int getAnnualIncomeTax() {
-		
-		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
-		LocalDate date = LocalDate.now();
-		
-		if (date.getYear() == yearJoined) {
-			monthWorkingInYear = date.getMonthValue() - monthJoined;
-		}else {
-			monthWorkingInYear = 12;
-		}
-		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
-	}
+	private boolean hasSpouse() {
+            return spouseIdNumber != null && !spouseIdNumber.isEmpty();
+        }
+
+        public int getAnnualIncomeTax() {
+            int monthWorkingInYear = joinDate.getMonthWorkingInYear();
+            return TaxFunction.calculateTax(
+                monthlySalary,
+                otherMonthlyIncome,
+                monthWorkingInYear,
+                annualDeductible,
+                !hasSpouse(),
+                childIdNumbers.size()
+            );
+        }
 }
